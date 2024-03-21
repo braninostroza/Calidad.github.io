@@ -86,9 +86,6 @@
                 <li class="nav-item">
                   <a class="nav-link active" aria-current="page" href="{% url 'contacto' %}">Contacto</a>
                 </li>
-                <li class="nav-item">
-                  <a class="nav-link active" aria-current="page" href="{% url 'registro' %}">Registrarse</a>
-                </li>
               </ul>
               <ul class="navbar-nav">
                 <li class="nav-item">
@@ -101,72 +98,43 @@
                     <i class="fas fa-user"></i>
                   </a>
                   <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileBtn">
-                    <li><a class="dropdown-item" href="#">Iniciar sesión</a></li>
-                    <li><a class="dropdown-item" href="#">Mi cuenta</a></li>
+                    <li><a class="dropdown-item" href="#">Iniciar Sesión</a></li>
+                    <li><a class="dropdown-item" href="{% url 'signup' %}">Registrarse</a></li>
+                    <li><a class="dropdown-item" href="#">Mi Cuenta</a></li>
+                    <li><a class="dropdown-item" href="#">Cerrar Sesión</a></li>
                   </ul>
                 </li>
               </ul>
             </div>
           </div>
-        </nav>                  
+        </nav>
         <!--fin navbar-->
-        <!--incio formulario-->
+        <!--formulario-->
         <div class="container">
             <form method="POST" action="#" id="formulario">
               {% csrf_token %}
-              <div class="form-group">
+              <div class="form-group"> 
                 {{ registro_form.nombre.label }}
                 {{ registro_form.nombre }}
               </div>
-          
-              <div class="form-group">
+
+              <div class="form-group"> 
                 {{ registro_form.correo.label }}
                 {{ registro_form.correo }}
-              </div>
-          
-              <div class="form-group">
+              </div> 
+
+        	    <div class="form-group"> 
                 {{ registro_form.contraseña.label }}
-                <input type="password" class="form-control" id="password" name="password">
+                {{ registro_form.contraseña }}
               </div>
-          
-              <div class="form-group">
-                <label for="password2">Confirmar Contraseña:</label>
-                <input type="password" class="form-control" id="password2" name="password2">
-              </div>
-          
-              <button type="submit" class="btn btn-primary" id="enviar" value="Enviar">Enviar</button>
+		
+              <button type="submit" class="btn btn-primary" id="enviar" value="Enviar">Enviar</button>   
               <a href="{% url 'listar_registro' %}" class="btn btn-primary">Listar Registro</a>
-              <button type="reset" class="btn btn-secondary" id="limpiar">Limpiar</button>
+		          <button type="reset" class="btn btn-secondary" id="limpiar">Limpiar</button> 
               <div id="error" class="alert alert-danger" role="alert"></div>
+                  
             </form>
-          </div>
-          
-          <script>
-            $(function() {
-              // Ocultar contraseñas
-              $('input[type="password"]').on('keyup', function() {
-                $(this).attr('type', 'text');
-              });
-              $('input[type="password"]').on('blur', function() {
-                $(this).attr('type', 'password');
-              });
-          
-              // Validar correo electrónico existente
-              $.ajax({
-                url: '/validar-correo/',
-                dataType: 'json',
-                success: function(data) {
-                  if (data.correo_existente) {
-                    $('#error').html('El correo electrónico ya está registrado').show();
-                    $('#enviar').prop('disabled', true);
-                  } else {
-                    $('#error').hide();
-                    $('#enviar').prop('disabled', false);
-                  }
-                }
-              });
-            });
-          </script>                   
+        </div> 
         <!--fin formulario-->
 
         <button class="scroll-top-btn oculto">&#11014;</button>

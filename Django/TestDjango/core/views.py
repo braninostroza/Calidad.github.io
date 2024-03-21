@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from .models import Registro, Contacto
 from .forms import RegistroForm, ContactoForm
+from django.contrib.auth.forms import UserCreationForm
 
 # Create your views here.
 
@@ -95,4 +96,9 @@ def eli_contacto(request, id):
 def eli_registro(request, id):
     registro = Registro.objects.get(nombre=id)
     registro.delete()
-    return redirect ('listar_registro')          
+    return redirect ('listar_registro')   
+
+def signup(request):
+    return render(request,'core/signup.html',{
+        'form': UserCreationForm
+    })          
