@@ -2,6 +2,9 @@ from django.shortcuts import render, redirect
 from .models import Registro, Contacto
 from .forms import RegistroForm, ContactoForm
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.views import LogoutView
+from django.http import HttpResponseRedirect
+from django.urls import reverse
 
 # Create your views here.
 
@@ -102,3 +105,8 @@ def signup(request):
     return render(request,'core/signup.html',{
         'form': UserCreationForm
     })          
+
+def logout_view(request):
+    from django.contrib.auth import logout
+    logout(request)
+    return redirect('core/index.html')

@@ -63,16 +63,29 @@
                     <i class="fas fa-user"></i>
                   </a>
                   <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileBtn">
-                    <li><a class="dropdown-item" href="#">Iniciar Sesión</a></li>
-                    <li><a class="dropdown-item" href="{% url 'signup' %}">Registrarse</a></li>
+                    {% if request.user.is_authenticated %}
                     <li><a class="dropdown-item" href="#">Mi Cuenta</a></li>
-                    <li><a class="dropdown-item" href="#">Cerrar Sesión</a></li>
+                    <li>
+                      <form id="logout-form" action="{% url 'logout' %}" method="post">
+                          {% csrf_token %}
+                          <button type="submit" class="dropdown-item">Cerrar Sesión</button>
+                      </form>
+                  </li> 
+                    {% else %}
+                    <li><a class="dropdown-item" href="#">Iniciar Sesión</a></li>
+                    <li><a class="dropdown-item" href="{% url 'registro' %}">Registrarse</a></li>                
+                    {% endif %}
                   </ul>
                 </li>
               </ul>
             </div>
           </div>
-        </nav>            
+        </nav>
+        <script>
+          document.getElementById('logout-form').addEventListener('submit', function() {
+              localStorage.clear();
+          });
+      </script>
         <!--fin navbar-->
         <div class="container">
             <div class="row">
@@ -160,7 +173,6 @@
                 <small>Inostroza-Ponce-san Martin@copyright Derechos Reservados.</small>
             </div>
         </footer>
-
         <div class="aviso-cookies" id="aviso-cookies">
           <img class="galleta" src="{% static 'img/cookies.png' %}" alt="galleta">
           <h3 class="titulo">Cookies</h3>
@@ -171,7 +183,6 @@
           <a class="enlace" href="{% url 'aviso' %}" target="_blank">Aviso de cookies</a>
       </div>
       <div class="fondo-aviso-cookies" id="fondo-aviso-cookies"></div>
-      
 
       
   
